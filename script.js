@@ -112,8 +112,8 @@ qS(".pizzaInfo--addButton").addEventListener("click", () => {
 
 
 function updateCart(){
-  let subtotal = 0
   if(cart.length > 0){
+    let subtotal = 0
     qS('aside').classList.add('show')
     qS('.cart').innerHTML = ''
     for (let i in cart){
@@ -144,11 +144,16 @@ function updateCart(){
       cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt
 
       let valorIndPizza = calculaVal(pizzaItem.price, cart[i].qt).toFixed(2)
-      subtotal += parseFloat(valorIndPizza)
+      subtotal = parseFloat(subtotal) + parseFloat(valorIndPizza)
       subtotal = parseFloat(subtotal).toFixed(2)
+      console.log(subtotal)
     }
 
-    qS('.cart--totalitem.subtotal').innerHTML =`<span>Subtotal</span><span>R$ ${subtotal.toString().replace('.', ',')}</span>`
+    let subTotalString = subtotal.toString().replace('.', ',')
+    let discount = (subtotal * 0.10).toFixed(2).toString().replace('.', ',')
+
+    qS('.cart--totalitem.subtotal').innerHTML =`<span>Subtotal</span><span>R$ ${subTotalString}</span>`
+    qS('.cart--totalitem.desconto').innerHTML =`<span>Desconto (-10%)</span><span>R$ ${discount}</span>`
   }else{
     qS('aside').classList.remove('show')
   }
