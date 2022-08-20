@@ -114,6 +114,11 @@ qS(".pizzaInfo--addButton").addEventListener("click", () => {
 function updateCart(){
   if(cart.length > 0){
     qS('aside').classList.add('show')
+    for (let i in cart){
+      let pizzaItem = pizzaJson.find((item) => {
+        return item.id == cart[i].id
+      })
+    }
   }else{
     qS('aside').classList.remove('show')
   }
