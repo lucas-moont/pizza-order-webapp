@@ -90,10 +90,10 @@ qSA(".pizzaInfo--size").forEach((size, sizeIndex) => {
 qS(".pizzaInfo--addButton").addEventListener("click", () => {
   let selectedSize = parseInt(qS(".selected").getAttribute("data-key"));
 
-  let identifier = pizzaJson[modalKey].id + "@" + selectedSize;
+  let identifier = pizzaJson[modalKey].id + "@" + selectedSize
 
   let cartFinder = cart.findIndex((item) => {
-    return (item.identifier == identifier);
+    return (item.identifier == identifier)
   });
 
   if (cartFinder > -1) {
@@ -106,6 +106,15 @@ qS(".pizzaInfo--addButton").addEventListener("click", () => {
       qt: modalQt,
     });
   }
-
-  closeOrderTab();
+  updateCart()
+  closeOrderTab()
 });
+
+
+function updateCart(){
+  if(cart.length > 0){
+    qS('aside').classList.add('show')
+  }else{
+    qS('aside').classList.remove('show')
+  }
+}
