@@ -1,6 +1,6 @@
-let cart = [];
+let cart = []
 
-let modalKey = "";
+let modalKey = ""
 
 const qS = (e) => document.querySelector(e);
 const qSA = (e) => document.querySelectorAll(e);
@@ -112,6 +112,7 @@ qS(".pizzaInfo--addButton").addEventListener("click", () => {
 
 
 function updateCart(){
+  let subtotal = 0
   if(cart.length > 0){
     qS('aside').classList.add('show')
     qS('.cart').innerHTML = ''
@@ -141,8 +142,18 @@ function updateCart(){
       cartItem.querySelector('img').src = pizzaItem.img
       cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName
       cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt
+
+      let valorIndPizza = calculaVal(pizzaItem.price, cart[i].qt).toFixed(2)
+      subtotal += parseFloat(valorIndPizza)
+      subtotal = parseFloat(subtotal).toFixed(2)
     }
+
+    qS('.cart--totalitem.subtotal').innerHTML =`<span>Subtotal</span><span>R$ ${subtotal.toString().replace('.', ',')}</span>`
   }else{
     qS('aside').classList.remove('show')
   }
+}
+
+function calculaVal(qtPizza, valPizza){
+  return qtPizza * valPizza
 }
