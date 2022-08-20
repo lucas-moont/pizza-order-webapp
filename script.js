@@ -22,6 +22,11 @@ pizzaJson.map((item, index) => {
     qS('.pizzaInfo h1').innerHTML = `${pizzaJson[key].name}`
     qS('.pizzaInfo--desc').innerHTML = `${pizzaJson[key].description}`
     qS('.pizzaBig img').src = `${pizzaJson[key].img}`
+    qS('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`
+
+    qSA('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+      size.querySelector('span').innerHTML = `${pizzaJson[key].sizes[sizeIndex]}`
+    })
 
     qS(".pizzaWindowArea").style.display = "flex";
     setTimeout(() => {
