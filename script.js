@@ -150,10 +150,15 @@ function updateCart(){
     }
 
     let subTotalString = subtotal.toString().replace('.', ',')
-    let discount = (subtotal * 0.10).toFixed(2).toString().replace('.', ',')
+    let discount = (subtotal * 0.10).toFixed(2)
+    let discountString = discount.toString().replace('.', ',')
+    let total = subtotal - discount
+    let totalString = total.toFixed(2).toString().replace('.', ',')
+
 
     qS('.cart--totalitem.subtotal').innerHTML =`<span>Subtotal</span><span>R$ ${subTotalString}</span>`
-    qS('.cart--totalitem.desconto').innerHTML =`<span>Desconto (-10%)</span><span>R$ ${discount}</span>`
+    qS('.cart--totalitem.desconto').innerHTML =`<span>Desconto (-10%)</span><span>R$ ${discountString}</span>`
+    qS('.cart--totalitem.total.big').innerHTML = `<span>Total</span><span>R$ ${totalString}</span>` 
   }else{
     qS('aside').classList.remove('show')
   }
