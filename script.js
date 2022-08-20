@@ -1,5 +1,6 @@
 const qS = (e) => document.querySelector(e);
 const qSA = (e) => document.querySelectorAll(e);
+let modalQt = 1
 
 pizzaJson.map((item, index) => {
   let pizzaItem = qS(".models .pizza-item").cloneNode(true);
@@ -17,7 +18,7 @@ pizzaJson.map((item, index) => {
   pizzaItem.querySelector("a").addEventListener("click", (event) => {
     event.preventDefault();
 
-    let modalQt = 1
+    modalQt = 1
 
     let key = event.target.closest('.pizza-item').getAttribute('data-key')
 
@@ -53,4 +54,16 @@ function closeOrderTab(){
 
 qSA('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
   item.addEventListener('click', closeOrderTab)
+})
+
+qS('.pizzaInfo--qtmenos').addEventListener('click', () => {
+  if(modalQt > 1){
+    modalQt--
+    qS('.pizzaInfo--qt').innerHTML = modalQt
+  }
+})
+
+qS('.pizzaInfo--qtmais').addEventListener('click', () => {
+  modalQt++
+  qS('.pizzaInfo--qt').innerHTML = modalQt
 })
