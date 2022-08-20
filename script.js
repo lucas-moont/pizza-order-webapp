@@ -17,16 +17,23 @@ pizzaJson.map((item, index) => {
   pizzaItem.querySelector("a").addEventListener("click", (event) => {
     event.preventDefault();
 
+    let modalQt = 1
+
     let key = event.target.closest('.pizza-item').getAttribute('data-key')
 
     qS('.pizzaInfo h1').innerHTML = `${pizzaJson[key].name}`
     qS('.pizzaInfo--desc').innerHTML = `${pizzaJson[key].description}`
     qS('.pizzaBig img').src = `${pizzaJson[key].img}`
     qS('.pizzaInfo--actualPrice').innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`
-
+    qS('.pizzaInfo--size.selected').classList.remove('selected')
     qSA('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+      if(sizeIndex == 2){
+        size.classList.add('selected')
+      }
       size.querySelector('span').innerHTML = `${pizzaJson[key].sizes[sizeIndex]}`
     })
+
+    qS('.pizzaInfo--qt').innerHTML = modalQt
 
     qS(".pizzaWindowArea").style.display = "flex";
     setTimeout(() => {
@@ -37,3 +44,13 @@ pizzaJson.map((item, index) => {
   qS(".pizza-area").append(pizzaItem);
 });
 
+function closeOrderTab(){
+  qS(".pizzaWindowArea").style.opacity = "0";
+  setTimeout(() => {
+    qS(".piizaWindowArea").style.display = 'none';
+  }, 500)
+}
+
+qSA('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
+  item.addEventListener('click', closeOrderTab)
+})
