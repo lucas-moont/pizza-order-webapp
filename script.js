@@ -108,10 +108,21 @@ qS(".pizzaInfo--addButton").addEventListener("click", () => {
   }
   updateCart();
   closeOrderTab();
-  qS('.menu-openner span').innerHTML = cart.length
 });
 
+qS('.menu-openner').addEventListener('click', () => {
+  if(cart.length > 0){
+    qS('aside').style.left = '0'
+  }
+})
+
+qS('.menu-closer').addEventListener('click', () => {
+  qS('aside').style.left = '100vw'
+})
+
 function updateCart() {
+  qS('.menu-openner span').innerHTML = cart.length
+
   if (cart.length > 0) {
     let subtotal = 0;
     qS("aside").classList.add("show");
@@ -169,6 +180,7 @@ function updateCart() {
         cart[btnIndex - 1].qt--;
         if (cart[btnIndex - 1].qt < 1) {
           cart.splice(btnIndex - 1, 1);
+          btn.closest(".cart--item").remove()
         }
         updateCart();
       });
@@ -180,16 +192,19 @@ function updateCart() {
         updateCart();
       });
     });
-
-    qS(".cart--finalizar").addEventListener("click", () => {
-      alert('Obrigado pela preferência! Sua pizza já vai chegar até você. :D')
-      cart = []
-      updateCart()
-    });
   } else {
     qS("aside").classList.remove("show");
+    qS('aside').style.left = '100vw'
   }
 }
+
+qS(".cart--finalizar").addEventListener("click", () => {
+  alert('Obrigado pela preferência! Sua pizza já vai chegar até você. :D')
+  cart = []
+  qS('aside').style.left = '100vw'
+  qS('.menu-openner span').innerHTML = cart.length
+  qS("aside").classList.remove("show");
+});
 
 function calculaVal(qtPizza, valPizza) {
   return qtPizza * valPizza;
